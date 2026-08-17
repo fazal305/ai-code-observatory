@@ -1,0 +1,100 @@
+.shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.sidebarCollapsed {
+  grid-template-columns: 0 1fr;
+}
+
+.sidebarSlot {
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  transition: width var(--transition-base);
+}
+
+.sidebarCollapsed .sidebarSlot {
+  width: 0;
+}
+
+.workspace {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.upper {
+  flex: 1 1 60%;
+  min-height: 0;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.editorSlot,
+.visualizerSlot {
+  flex: 1 1 50%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.lower {
+  flex: 0 0 260px;
+  min-height: 0;
+}
+
+.tabPanel {
+  height: 100%;
+}
+
+/* Tablet: stack editor/visualizers, keep sidebar as a column. */
+@media (max-width: 1024px) {
+  .body {
+    grid-template-columns: minmax(200px, 240px) 1fr;
+  }
+
+  .upper {
+    flex-direction: column;
+  }
+
+  .editorSlot,
+  .visualizerSlot {
+    flex: 1 1 50%;
+  }
+}
+
+/* Mobile: sidebar becomes an overlay drawer instead of a grid column. */
+@media (max-width: 720px) {
+  .body {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  .sidebarSlot {
+    position: absolute;
+    inset: 0 20% 0 0;
+    z-index: 20;
+    box-shadow: var(--shadow-md);
+  }
+
+  .sidebarCollapsed .sidebarSlot {
+    display: none;
+  }
+
+  .lower {
+    flex-basis: 220px;
+  }
+}

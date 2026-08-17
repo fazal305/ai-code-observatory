@@ -1,0 +1,45 @@
+.entry {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 2px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.time {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+}
+
+.level {
+  flex: 0 0 auto;
+  width: 4ch;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.message {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.warn .message,
+.warn .level {
+  color: var(--warning);
+}
+
+.error .message,
+.error .level {
+  color: var(--danger);
+}
+
+.info .level {
+  color: var(--accent);
+}

@@ -1,0 +1,17 @@
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.label {
+  margin-left: var(--space-1);
+}
+
+/* Icon-only below ~480px — the accessible name still comes from the
+   button's own aria-label, so nothing is lost for screen readers. */
+@media (max-width: 480px) {
+  .label {
+    display: none;
+  }
+}
