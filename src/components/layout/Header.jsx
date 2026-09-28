@@ -1,14 +1,14 @@
-import Button from '../common/Button.jsx'
-import ExecutionControls from '../execution/ExecutionControls.jsx'
-import ExecutionStatus from '../execution/ExecutionStatus.jsx'
-import { useTheme } from '../../context/ThemeContext.jsx'
-import { APP_NAME } from '../../config/app.js'
-import styles from './Header.module.css'
+import Button from "../common/Button.jsx";
+import ExecutionControls from "../execution/ExecutionControls.jsx";
+import ExecutionStatus from "../execution/ExecutionStatus.jsx";
+import { useTheme } from "../../context/ThemeContext.jsx";
+import { APP_NAME } from "../../config/app.js";
+import styles from "./Header.module.css";
 
-const THEME_ICON = { dark: '🌙', light: '☀️', system: '🖥️' }
+const THEME_ICON = { dark: "🌙", light: "☀️", system: "🖥️" };
 
 function Header({ onToggleSidebar, sidebarOpen, sourceCode, onOpenPalette }) {
-  const { mode, cycleTheme } = useTheme()
+  const { mode, cycleTheme } = useTheme();
 
   return (
     <header className={styles.header}>
@@ -17,7 +17,7 @@ function Header({ onToggleSidebar, sidebarOpen, sourceCode, onOpenPalette }) {
           variant="ghost"
           size="sm"
           onClick={onToggleSidebar}
-          aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+          aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
           aria-pressed={sidebarOpen}
           className={styles.sidebarToggle}
         >
@@ -35,7 +35,12 @@ function Header({ onToggleSidebar, sidebarOpen, sourceCode, onOpenPalette }) {
       </div>
 
       <div className={styles.right}>
-        <Button variant="ghost" size="sm" onClick={onOpenPalette} title="Command palette (Ctrl/Cmd+K)">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onOpenPalette}
+          title="Command palette (Ctrl/Cmd+K)"
+        >
           ⌘K
         </Button>
         <Button
@@ -49,7 +54,7 @@ function Header({ onToggleSidebar, sidebarOpen, sourceCode, onOpenPalette }) {
         </Button>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

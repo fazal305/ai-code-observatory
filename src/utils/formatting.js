@@ -6,15 +6,15 @@
 // sessions never touch.
 export async function formatJavaScript(source) {
   const [prettier, babelPlugin, estreePlugin] = await Promise.all([
-    import('prettier/standalone'),
-    import('prettier/plugins/babel'),
-    import('prettier/plugins/estree'),
-  ])
+    import("prettier/standalone"),
+    import("prettier/plugins/babel"),
+    import("prettier/plugins/estree"),
+  ]);
   return prettier.format(source, {
-    parser: 'babel',
+    parser: "babel",
     plugins: [babelPlugin.default, estreePlugin.default],
     semi: true,
     singleQuote: false,
     tabWidth: 2,
-  })
+  });
 }

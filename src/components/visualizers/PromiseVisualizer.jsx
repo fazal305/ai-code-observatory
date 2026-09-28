@@ -1,25 +1,36 @@
-import { useMemo } from 'react'
-import { useExecution } from '../../context/ExecutionContext.jsx'
-import { formatValue } from '../../utils/formatValue.js'
-import EmptyState from '../common/EmptyState.jsx'
-import styles from './PromiseVisualizer.module.css'
+import { useMemo } from "react";
+import { useExecution } from "../../context/ExecutionContext.jsx";
+import { formatValue } from "../../utils/formatValue.js";
+import EmptyState from "../common/EmptyState.jsx";
+import styles from "./PromiseVisualizer.module.css";
 
-const STATE_LABEL = { pending: 'Pending', fulfilled: 'Fulfilled', rejected: 'Rejected' }
+const STATE_LABEL = {
+  pending: "Pending",
+  fulfilled: "Fulfilled",
+  rejected: "Rejected",
+};
 
 function PromiseNode({ promise, byParent, microtasksByParent, depth }) {
-  const children = byParent.get(promise.id) ?? []
-  const microtasks = microtasksByParent.get(promise.id) ?? []
-  const settled = promise.state !== 'pending'
+  const children = byParent.get(promise.id) ?? [];
+  const microtasks = microtasksByParent.get(promise.id) ?? [];
+  const settled = promise.state !== "pending";
 
   return (
-    <div className={styles.node} style={{ '--depth': depth }}>
+    <div className={styles.node} style={{ "--depth": depth }}>
       <div className={styles.card}>
         <div className={styles.transition}>
-          <span className={[styles.stateChip, styles.pendingChip].join(' ')}>Pending</span>
+          <span className={[styles.stateChip, styles.pendingChip].join(" ")}>
+            Pending
+          </span>
           {settled ? (
             <>
               <span className={styles.transitionArrow}>→</span>
-              <span className={[styles.stateChip, styles[`${promise.state}Chip`]].join(' ')}>
+              <span
+                className={[
+                  styles.stateChip,
+                  styles[`${promise.state}Chip`],
+                ].join(" ")}
+              >
                 {STATE_LABEL[promise.state]}
               </span>
             </>
@@ -29,7 +40,9 @@ function PromiseNode({ promise, byParent, microtasksByParent, depth }) {
           <span className={styles.id}>{promise.id}</span>
           {settled ? (
             <span className={styles.value}>
-              {promise.state === 'fulfilled' ? formatValue(promise.value) : formatValue(promise.reason)}
+              {promise.state === "fulfilled"
+                ? formatValue(promise.value)
+                : formatValue(promise.reason)}
             </span>
           ) : (
             <span className={styles.waiting}>awaiting settlement…</span>
@@ -38,8 +51,14 @@ function PromiseNode({ promise, byParent, microtasksByParent, depth }) {
         {microtasks.length > 0 ? (
           <div className={styles.microtasks}>
             {microtasks.map((m) => (
-              <span key={m.id} className={[styles.microtaskTag, m.state === 'executed' ? styles.executed : ''].join(' ')}>
-                .{m.kind}() {m.state === 'executed' ? 'ran' : 'queued'}
+              <span
+                key={m.id}
+                className={[
+                  styles.microtaskTag,
+                  m.state === "executed" ? styles.executed : "",
+                ].join(" ")}
+              >
+                .{m.kind}() {m.state === "executed" ? "ran" : "queued"}
               </span>
             ))}
           </div>
@@ -56,44 +75,54 @@ function PromiseNode({ promise, byParent, microtasksByParent, depth }) {
         />
       ))}
     </div>
-  )
+  );
 }
 
 function PromiseVisualizer() {
-  const { state } = useExecution()
+  const { state } = useExecution();
 
   const byParent = useMemo(() => {
-    const map = new Map()
+    const map = new Map();
     for (const promise of state.promises) {
-      if (!promise.derivedFrom) continue
-      const list = map.get(promise.derivedFrom) ?? []
-      list.push(promise)
-      map.set(promise.derivedFrom, list)
+      if (!promise.derivedFrom) continue;
+      const list = map.get(promise.derivedFrom) ?? [];
+      list.push(promise);
+      map.set(promise.derivedFrom, list);
     }
-    return map
-  }, [state.promises])
+    return map;
+  }, [state.promises]);
 
   const microtasksByParent = useMemo(() => {
-    const map = new Map()
+    const map = new Map();
     for (const microtask of state.microtasks) {
-      if (!microtask.parentId) continue
-      const list = map.get(microtask.parentId) ?? []
-      list.push(microtask)
-      map.set(microtask.parentId, list)
+      if (!microtask.parentId) continue;
+      const list = map.get(microtask.parentId) ?? [];
+      list.push(microtask);
+      map.set(microtask.parentId, list);
     }
-    return map
-  }, [state.microtasks])
+    return map;
+  }, [state.microtasks]);
 
-  const roots = state.promises.filter((p) => !p.derivedFrom)
+  const roots = state.promises.filter((p) => !p.derivedFrom);
 
-  if (state.status === 'idle') {
+  if (state.status === "idle") {
     return (
-      <EmptyState icon="◇" title="Promises" description="Run code that creates a Promise to see its state here." />
-    )
+      <EmptyState
+        icon="◇"
+        title="Promises"
+        description="Run code that creates a Promise to see its state here."
+      />
+    );
   }
 
   if (roots.length === 0) {
-    return <EmptyState icon="◇" title="No promises" description="This run didn't create any Promises." />
+    return (
+      <EmptyState
+        icon="◇"
+        title="No promises"
+        description="This run didn't create any Promises."
+      />
+    );
   }
 
   return (
@@ -108,7 +137,7 @@ function PromiseVisualizer() {
         />
       ))}
     </div>
-  )
+  );
 }
 
-export default PromiseVisualizer
+export default PromiseVisualizer;

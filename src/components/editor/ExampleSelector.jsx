@@ -1,19 +1,20 @@
-import { useState } from 'react'
-import { getExamplesByCategory } from '../../data/examples.js'
-import styles from './ExampleSelector.module.css'
+import { useState } from "react";
+import { getExamplesByCategory } from "../../data/examples.js";
+import styles from "./ExampleSelector.module.css";
 
-const GROUPS = getExamplesByCategory()
+const GROUPS = getExamplesByCategory();
 
 function ExampleSelector({ activeExampleId, onSelect }) {
   const [openCategory, setOpenCategory] = useState(
-    GROUPS.find((group) => group.examples.some((example) => example.id === activeExampleId))?.category ??
-      GROUPS[0]?.category
-  )
+    GROUPS.find((group) =>
+      group.examples.some((example) => example.id === activeExampleId),
+    )?.category ?? GROUPS[0]?.category,
+  );
 
   return (
     <nav className={styles.list} aria-label="Example programs">
       {GROUPS.map(({ category, examples }) => {
-        const isOpen = openCategory === category
+        const isOpen = openCategory === category;
         return (
           <div key={category} className={styles.group}>
             <button
@@ -23,7 +24,7 @@ function ExampleSelector({ activeExampleId, onSelect }) {
               onClick={() => setOpenCategory(isOpen ? null : category)}
             >
               <span className={styles.caret} aria-hidden="true">
-                {isOpen ? '▾' : '▸'}
+                {isOpen ? "▾" : "▸"}
               </span>
               {category}
             </button>
@@ -35,10 +36,10 @@ function ExampleSelector({ activeExampleId, onSelect }) {
                       type="button"
                       className={[
                         styles.exampleButton,
-                        example.id === activeExampleId ? styles.active : '',
+                        example.id === activeExampleId ? styles.active : "",
                       ]
                         .filter(Boolean)
-                        .join(' ')}
+                        .join(" ")}
                       onClick={() => onSelect(example)}
                       title={example.description}
                     >
@@ -49,10 +50,10 @@ function ExampleSelector({ activeExampleId, onSelect }) {
               </ul>
             ) : null}
           </div>
-        )
+        );
       })}
     </nav>
-  )
+  );
 }
 
-export default ExampleSelector
+export default ExampleSelector;

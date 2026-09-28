@@ -1,25 +1,25 @@
-import { useState } from 'react'
-import Button from '../common/Button.jsx'
-import { formatJavaScript } from '../../utils/formatting.js'
-import styles from './EditorToolbar.module.css'
+import { useState } from "react";
+import Button from "../common/Button.jsx";
+import { formatJavaScript } from "../../utils/formatting.js";
+import styles from "./EditorToolbar.module.css";
 
 function EditorToolbar({ value, onChange, cursorPosition }) {
-  const [formatError, setFormatError] = useState(null)
+  const [formatError, setFormatError] = useState(null);
 
   const handleFormat = async () => {
     try {
-      const formatted = await formatJavaScript(value)
-      setFormatError(null)
-      onChange(formatted)
+      const formatted = await formatJavaScript(value);
+      setFormatError(null);
+      onChange(formatted);
     } catch (error) {
-      setFormatError(error.message.split('\n')[0])
+      setFormatError(error.message.split("\n")[0]);
     }
-  }
+  };
 
   const handleClear = () => {
-    setFormatError(null)
-    onChange('')
-  }
+    setFormatError(null);
+    onChange("");
+  };
 
   return (
     <div className={styles.toolbar}>
@@ -27,10 +27,17 @@ function EditorToolbar({ value, onChange, cursorPosition }) {
         <Button size="sm" onClick={handleFormat} title="Format with Prettier">
           Format
         </Button>
-        <Button size="sm" variant="ghost" onClick={handleClear} title="Clear the editor">
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={handleClear}
+          title="Clear the editor"
+        >
           Clear
         </Button>
-        {formatError ? <span className={styles.error}>{formatError}</span> : null}
+        {formatError ? (
+          <span className={styles.error}>{formatError}</span>
+        ) : null}
       </div>
       <div className={styles.right}>
         {cursorPosition ? (
@@ -40,7 +47,7 @@ function EditorToolbar({ value, onChange, cursorPosition }) {
         ) : null}
       </div>
     </div>
-  )
+  );
 }
 
-export default EditorToolbar
+export default EditorToolbar;

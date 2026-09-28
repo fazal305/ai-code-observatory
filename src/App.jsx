@@ -1,7 +1,7 @@
-import AppShell from './components/layout/AppShell.jsx'
+import AppShell from "./components/layout/AppShell.jsx";
 
 function App() {
-  return <AppShell />
+  return <AppShell />;
 }
 
-export default App
+export default App;

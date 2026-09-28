@@ -1,4 +1,4 @@
-import styles from './EmptyState.module.css'
+import styles from "./EmptyState.module.css";
 
 function EmptyState({ icon = null, title, description, action = null }) {
   return (
@@ -12,7 +12,7 @@ function EmptyState({ icon = null, title, description, action = null }) {
       {description ? <p className={styles.description}>{description}</p> : null}
       {action ? <div className={styles.action}>{action}</div> : null}
     </div>
-  )
+  );
 }
 
-export default EmptyState
+export default EmptyState;
