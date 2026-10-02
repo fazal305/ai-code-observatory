@@ -4,6 +4,8 @@ A browser-based JavaScript execution visualization and analysis environment — 
 
 This is not a code editor with a run button. It's closer to "Chrome DevTools meets a JavaScript runtime laboratory" — every visualization is built from genuine events emitted while your code actually executes in a Web Worker.
 
+**Live Demo:** [https://fazal305.github.io/ai-code-observatory/](https://fazal305.github.io/ai-code-observatory/)
+
 ## Table of contents
 
 - [Quick start](#quick-start)
